@@ -2,6 +2,8 @@ package com.restfulbooker.api.payloads;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 public class Booking {
 
     @JsonProperty
@@ -97,5 +99,30 @@ public class Booking {
         public Booking build(){
             return new Booking(firstname, lastname, totalprice, depositpaid, bookingdates, additionalneeds);
         }
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Booking booking = (Booking) o;
+        return totalprice == booking.totalprice && depositpaid == booking.depositpaid && Objects.equals(firstname, booking.firstname) && Objects.equals(lastname, booking.lastname) && Objects.equals(additionalneeds, booking.additionalneeds);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(firstname, lastname, totalprice, depositpaid, additionalneeds);
+    }
+
+    @Override
+    public String toString() {
+        return "Booking { " + "\n" +
+                "firstname = " + firstname + "\n" +
+                "lastname = " + lastname + "\n" +
+                "totalprice = " + totalprice + "\n" +
+                "depositpaid = " + depositpaid + "\n" +
+                "bookingdates = " + bookingdates + "\n" +
+                "additionalneeds = " + additionalneeds + "\n" +
+                "}";
     }
 }

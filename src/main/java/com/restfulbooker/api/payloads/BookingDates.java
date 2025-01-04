@@ -48,4 +48,12 @@ public class BookingDates {
             return new BookingDates(checkin, checkout);
         }
     }
+
+    @Override
+    public String toString() {
+        return "BookingDates { " + "\n" +
+                "checkin = " + checkin + "\n" +
+                "checkout = " + checkout + "\n" +
+                "}";
+    }
 }

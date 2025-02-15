@@ -2,71 +2,63 @@ package com.restfulbooker.api;
 
 import com.restfulbooker.api.api.AuthApi;
 import com.restfulbooker.api.api.BookingApi;
-import com.restfulbooker.api.payloads.*;
+import com.restfulbooker.api.payloads.Auth;
+import com.restfulbooker.api.payloads.AuthResponse;
+import com.restfulbooker.api.payloads.BookingResponse;
+import com.restfulbooker.api.payloads.lombok.Booking;
+import com.restfulbooker.api.payloads.lombok.BookingDates;
 import io.restassured.response.Response;
 import org.approvaltests.Approvals;
 import org.junit.jupiter.api.Test;
 
-import java.util.Date;
-
 public class ApiStatusCodeTest {
 
     @Test
-    public void getBookingShouldReturn200(){
+    public void getBookingShouldReturn200() {
         Response response = BookingApi.getBookings();
 
         Approvals.verify(response.getStatusCode());
     }
 
     @Test
-    public void getBookingIdShouldReturn200(){
+    public void getBookingIdShouldReturn200() {
         Response response = BookingApi.getBooking(1, "application/json");
-
         Approvals.verify(response.getStatusCode());
     }
 
     @Test
-    public void getBookingIdWithBadAcceptShouldReturn418(){
+    public void getBookingIdWithBadAcceptShouldReturn418() {
         Response response = BookingApi.getBooking(1, "text/plain");
 
         Approvals.verify(response.getStatusCode());
     }
 
     @Test
-    public void postBookingReturns200(){
-        BookingDates dates = new BookingDates.Builder()
-                .setCheckin(new Date())
-                .setCheckout(new Date())
-                .build();
-
-        Booking payload = new Booking.Builder()
-                .setFirstname("Mary")
-                .setLastname("White")
-                .setTotalprice(200)
-                .setDepositpaid(true)
-                .setBookingdates(dates)
-                .setAdditionalneeds("None")
+    public void postBookingReturns200() {
+        BookingDates dates = new com.restfulbooker.api.payloads.lombok.BookingDates();
+        Booking payload = com.restfulbooker.api.payloads.lombok.Booking.builder()
+                .firstname("Mary")
+                .lastname("White")
+                .totalprice(200)
+                .depositpaid(true)
+                .bookingdates(dates)
+                .additionalneeds("None")
                 .build();
 
         Response response = BookingApi.postBooking(payload);
-
         Approvals.verify(response.getStatusCode());
     }
 
     @Test
-    public void deleteBookingReturns201(){
-        BookingDates dates = new BookingDates.Builder()
-                .setCheckin(new Date())
-                .setCheckout(new Date())
-                .build();
-
-        Booking payload = new Booking.Builder()
-                .setFirstname("Mary")
-                .setLastname("White")
-                .setTotalprice(200)
-                .setDepositpaid(true)
-                .setBookingdates(dates)
-                .setAdditionalneeds("None")
+    public void deleteBookingReturns201() {
+        BookingDates dates = new BookingDates();
+        Booking payload = Booking.builder()
+                .firstname("Mary")
+                .lastname("White")
+                .totalprice(200)
+                .depositpaid(true)
+                .bookingdates(dates)
+                .additionalneeds("None")
                 .build();
 
         BookingResponse createdBookingResponse = BookingApi.postBooking(payload).as(BookingResponse.class);

@@ -1,9 +1,11 @@
-package com.restfulbooker.api.payloads;
+package com.restfulbooker.api.payloads.jackson;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
 
 import java.util.Objects;
 
+@Getter
 public class Booking {
 
     @JsonProperty
@@ -18,30 +20,6 @@ public class Booking {
     private BookingDates bookingdates;
     @JsonProperty
     private String additionalneeds;
-
-    public String getFirstname() {
-        return firstname;
-    }
-
-    public String getLastname() {
-        return lastname;
-    }
-
-    public int getTotalprice() {
-        return totalprice;
-    }
-
-    public boolean isDepositpaid() {
-        return depositpaid;
-    }
-
-    public BookingDates getBookingdates() {
-        return bookingdates;
-    }
-
-    public String getAdditionalneeds() {
-        return additionalneeds;
-    }
 
     // default constructor required by Jackson
     private Booking() {

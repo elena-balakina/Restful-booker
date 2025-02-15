@@ -1,4 +1,4 @@
-package com.restfulbooker.api.payloads;
+package com.restfulbooker.api.payloads.jackson;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

@@ -1,12 +1,10 @@
 package com.restfulbooker.api;
 
 import com.restfulbooker.api.api.BookingApi;
-import com.restfulbooker.api.payloads.Booking;
-import com.restfulbooker.api.payloads.BookingDates;
 import com.restfulbooker.api.payloads.BookingResponse;
+import com.restfulbooker.api.payloads.lombok.Booking;
+import com.restfulbooker.api.payloads.lombok.BookingDates;
 import org.junit.jupiter.api.Test;
-
-import java.util.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -14,18 +12,14 @@ public class ApiCreateBookingTest {
 
     @Test
     public void postBookingAndGetBooking(){
-        BookingDates dates = new BookingDates.Builder()
-                .setCheckin(new Date())
-                .setCheckout(new Date())
-                .build();
-
-        Booking payload = new Booking.Builder()
-                .setFirstname("Mary")
-                .setLastname("White")
-                .setTotalprice(200)
-                .setDepositpaid(true)
-                .setBookingdates(dates)
-                .setAdditionalneeds("None")
+        BookingDates dates = new BookingDates();
+        Booking payload = Booking.builder()
+                .firstname("Mary")
+                .lastname("White")
+                .totalprice(200)
+                .depositpaid(true)
+                .bookingdates(dates)
+                .additionalneeds("None")
                 .build();
 
         BookingResponse createdBookingResponse = BookingApi.postBooking(payload).as(BookingResponse.class);
